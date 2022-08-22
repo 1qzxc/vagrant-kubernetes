@@ -189,6 +189,8 @@ sudo kubectl patch storageclass nfs-client -p '{"metadata": {"annotations":{"sto
 # add ArgoCD                                  ( + )
 # add jenkins with values                     ( - )
 # configure iac pipelines                     ( - )
+
+
 # deploy app stack                            ( - )
 # add vault                                   ( - )
 # add keystore                                ( - )
@@ -199,6 +201,7 @@ sudo kubectl patch storageclass nfs-client -p '{"metadata": {"annotations":{"sto
 # add LinkerD                                 ( - )
 # add metrics-server                          ( - )
 # add Dashboard                               ( - )
+# add keycloak                                ( - )
 
 
 # add storage stack:
