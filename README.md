@@ -9,7 +9,7 @@ This thing needs 8gig 2cpu cores per machine totalling in 24gig for 3 vms
 First you need to up the master because it will generate the join command for nodes (slaves)
 
 ```
-vagrant up <master-hostname>
+vagrant up k8smaster.home (see config.rb)
 ```
 
 Then
