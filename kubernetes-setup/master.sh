@@ -129,6 +129,11 @@ sudo helm install nfs-subdir-external-provisioner nfs-subdir-external-provisione
 sudo kubectl patch storageclass local-storage -p '{"metadata": {"annotations":{"storageclass.kubernetes.io/is-default-class":"false"}}}'
 sudo kubectl patch storageclass nfs-client -p '{"metadata": {"annotations":{"storageclass.kubernetes.io/is-default-class":"true"}}}'
 
+sudo chmod +x vagrant-kubernetes/kubernetes-setup/files/loadbalancer/metallb.sh
+sudo ./vagrant-kubernetes/kubernetes-setup/files/loadbalancer/metallb.sh 
+sudo helm repo add nginx-stable https://helm.nginx.com/stable
+sudo helm repo update
+sudo helm install nginx-ingress nginx-stable/nginx-ingress
 
 
 
