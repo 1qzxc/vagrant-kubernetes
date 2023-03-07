@@ -11,8 +11,9 @@ MASTERHOSTNAME=$6
 
 #run this dude with sudo
 
-sudo ip route del default via 192.168.121.1
+#sudo ip route del default via 192.168.121.1
 #sudo ip route del default via 10.0.2.2
+sudo ip route del default via 192.168.122.1
 sudo ip route add default via 192.168.1.1
 
 
@@ -48,9 +49,11 @@ else
 fi
 
 sudo apt update
+sudo apt-get install ca-certificates -y
 sudo apt -y install curl apt-transport-https sshpass
 curl -k -s https://packages.cloud.google.com/apt/doc/apt-key.gpg | sudo apt-key add -
 echo "deb https://apt.kubernetes.io/ kubernetes-xenial main" | sudo tee /etc/apt/sources.list.d/kubernetes.list
+#echo "deb https://apt.kubernetes.io/ kubernetes-focal main" | sudo tee /etc/apt/sources.list.d/kubernetes.list
 sudo apt update
 sudo apt -y install vim git curl wget
 sudo apt-get install -qy kubelet=$KUBEVERSION kubectl=$KUBEVERSION kubeadm=$KUBEVERSION

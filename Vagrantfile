@@ -4,7 +4,7 @@
 require './config.rb'
 
 
-IMAGE_NAME = "generic/ubuntu1804"
+IMAGE_NAME = "generic/ubuntu2204"
 N = 2
 
 Vagrant.configure("2") do |config|
