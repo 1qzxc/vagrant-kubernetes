@@ -75,7 +75,7 @@ EOF
 # Reload sysctl
 sudo sysctl --system
 
-git clone https://github.com/morozovme/vagrant-kubernetes.git
+git clone -b feature/fedora37 https://github.com/morozovme/vagrant-kubernetes.git
 
 # install container runtime
 sudo chmod +x /home/vagrant/vagrant-kubernetes/kubernetes-setup/files/ct-runtime/docker.sh
