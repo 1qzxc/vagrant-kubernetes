@@ -52,6 +52,7 @@ sudo apt update
 
 
 sudo apt-get install -qy kubelet=$KUBEVERSION kubectl=$KUBEVERSION kubeadm=$KUBEVERSION
+#sudo apt-get install -y kubelet kubectl kubeadm
 
 sudo apt-mark hold kubelet kubeadm kubectl
 
