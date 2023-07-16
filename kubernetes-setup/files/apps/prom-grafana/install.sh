@@ -7,3 +7,4 @@ kubectl patch svc stable-kube-prometheus-sta-prometheus -p '{"spec": {"type": "L
 #kubectl edit svc stable-grafana
 kubectl patch svc stable-grafana -p '{"spec": {"type": "LoadBalancer"}}'
 kubectl get svc -A
+kubectl get secret stable-grafana -o jsonpath="{.data.admin-password}" | base64 --decode ; echo
