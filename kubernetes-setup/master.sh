@@ -16,7 +16,7 @@ export DOCKERCACHE=$2
 # to-do: add if default route == 192.168.121.1
 #sudo ip route del default via 192.168.121.1
 # to-do: add if default route == 10.0.2.2
-#sudo ip route del default via 10.0.2.0
+sudo ip route del default via 10.0.2.2
 
 # add real LAN gateway as default
 sudo ip route add default via 192.168.1.1
@@ -103,7 +103,8 @@ sudo chmod +x /home/vagrant/vagrant-kubernetes/kubernetes-setup/files/persistanc
 sudo /home/vagrant/vagrant-kubernetes/kubernetes-setup/files/persistance/local.sh
 
 
-sudo kubectl create -f vagrant-kubernetes/kubernetes-setup/files/cni/flannel.yaml
+#sudo kubectl create -f vagrant-kubernetes/kubernetes-setup/files/cni/flannel.yaml
+sudo kubectl apply -f https://github.com/flannel-io/flannel/releases/latest/download/kube-flannel.yml
 
 # install helm
 sudo curl https://raw.githubusercontent.com/helm/helm/master/scripts/get-helm-3 | bash

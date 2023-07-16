@@ -4,15 +4,14 @@
 require './config.rb'
 
 
-IMAGE_NAME = "generic/ubuntu1804"
+IMAGE_NAME = "generic/ubuntu2004"
 N = 2
 
 Vagrant.configure("2") do |config|
     config.ssh.insert_key = 'false'
-    config.vm.provider :libvirt do |libvirt|
-        libvirt.memory = 8192
-        libvirt.cpus = 2
-        libvirt.storage :file, :size => '50G'
+    config.vm.provider "virtualbox" do |v|
+        v.memory = 8192
+        v.cpus = 2
     end
 
     config.vm.define MASTERHOSTNAME do |master|
@@ -28,10 +27,9 @@ end
 
 Vagrant.configure("2") do |config|
     config.ssh.insert_key = 'false'
-    config.vm.provider :libvirt do |v|
+    config.vm.provider "virtualbox" do |v|
         v.memory = 8192
-        v.cpus = 2
-        v.storage :file, :size => '50G'
+        v.cpus = 4
     end
 
     (1..N).each do |i|
