@@ -1,3 +1,5 @@
+# this playbook is deprecated and not tested anymore
+# keeping it just for archive
 ---
 - hosts: all
   become: true
@@ -54,8 +56,8 @@
       update_cache: yes
     vars:
       packages:
-#      - docker-ce 
-#      - docker-ce-cli 
+#      - docker-ce=18.06.1~ce~3-0~ubuntu 
+#      - docker-ce-cli=18.06.1~ce~3-0~ubuntu
       - containerd.io
 #    notify:
 #      - docker status
@@ -64,10 +66,10 @@
     apt: deb="https://download.docker.com/linux/ubuntu/dists/xenial/pool/stable/amd64/docker-ce-cli_18.09.0~3-0~ubuntu-xenial_amd64.deb"
     sudo: true
 
-  - name: install docker-ce
+  - name: install docker-ce 
     apt: deb="https://download.docker.com/linux/ubuntu/dists/xenial/pool/stable/amd64/docker-ce_18.09.0~3-0~ubuntu-xenial_amd64.deb"
     sudo: true
-
+  
 #  - name: install containerd
 #    apt: deb="https://download.docker.com/linux/ubuntu/dists/xenial/pool/stable/amd64/containerd.io_1.2.0-1_amd64.deb"
 #    sudo: true
@@ -78,6 +80,7 @@
     user:
       name: vagrant
       group: docker
+
 
 
   - name: Remove swapfile from /etc/fstab
@@ -92,11 +95,6 @@
   - name: Disable swap
     command: swapoff -a
     when: ansible_swaptotal_mb > 0
-
-#  - name: change docker config              # for some reason changes to cgroups again
-#    copy:
-#      src: "{{ playbook_dir }}/files/daemon.json"
-#      dest: /etc/docker/daemon.json
 
   - name: Add an apt signing key for Kubernetes
     apt_key:
@@ -131,17 +129,36 @@
       daemon_reload: yes
       state: restarted
 
-  - name: Copy the join command to server location
-    copy: 
-#      src: ~/infrastructure_scripts/vagrant/kubernetes-vbox/kubernetes-setup/files/join-command 
-      src: "{{ playbook_dir }}/files/join-command"
-      dest: /tmp/join-command.sh 
-      mode: 0777
-      
+#  - name: Initialize the Kubernetes cluster using kubeadm
+#    command: kubeadm init --apiserver-advertise-address="192.168.1.170" --apiserver-cert-extra-sans="192.168.1.170"  --node-name k8s-master --pod-network-cidr=192.168.1.0/24
 
-  - name: Join the node to cluster
-    command: sh /tmp/join-command.sh
+
+  - name: checking new pod cidr 
+    command: kubeadm init --apiserver-advertise-address="192.168.1.170" --apiserver-cert-extra-sans="192.168.1.170"  --node-name k8s-master --pod-network-cidr=172.16.0.0/16
+
+
+  - name: Setup kubeconfig for vagrant user
+    command: "{{ item }}"
+    with_items:
+     - mkdir -p /home/vagrant/.kube
+     - cp -i /etc/kubernetes/admin.conf /home/vagrant/.kube/config
+     - chown vagrant:vagrant /home/vagrant/.kube/config
+
+  - name: Install calico pod network
+    become: false
+    command: kubectl apply -f https://docs.projectcalico.org/v3.8/manifests/calico.yaml
+
+
+  - name: Generate join command
+    command: kubeadm token create --print-join-command
+    register: join_command
+
+  - name: Copy join command to local file
+    local_action: copy content="{{ join_command.stdout_lines[0] }}" dest="./files/join-command"
 
   handlers:
   - name: docker status
     service: name=docker state=started
+
+
+
