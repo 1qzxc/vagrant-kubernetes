@@ -87,6 +87,8 @@ sudo lsmod | grep br_netfilter
 #sudo systemctl enable kubelet
 
 #sudo kubeadm config images pull
+
+
 sudo apt-get install nfs-common -y
 ssh-keygen -t rsa -N "" -f id_rsa
 sudo sshpass -p 'vagrant' ssh-copy-id -i id_rsa -oStrictHostKeyChecking=no vagrant@$MASTERHOSTNAME
@@ -94,6 +96,46 @@ sudo scp -i id_rsa vagrant@$MASTERHOSTNAME:/tmp/join-command.sh /tmp/join-comman
 sudo chmod +x /tmp/join-command.sh && sudo /tmp/join-command.sh 
 mkdir -p /home/vagrant/pv1
 sudo chmod 777 /home/vagrant/pv1
+
+## turn off swap 
+# echo '#' > /etc/fstab swap
+#
+# to do
+#
+
+### add default route to netplan yaml config
+#
+# to do
+# 
+
+
+### install ROCm for amdgpu openCL
+
+#sudo mkdir --parents --mode=0755 /etc/apt/keyrings
+# Download the key, convert the signing-key to a full
+# keyring required by apt and store in the keyring directory
+#wget https://repo.radeon.com/rocm/rocm.gpg.key -O - | \
+#    gpg --dearmor | sudo tee /etc/apt/keyrings/rocm.gpg > /dev/null
+
+#sudo tee /etc/apt/sources.list.d/amdgpu.list <<'EOF'
+#deb [arch=amd64 signed-by=/etc/apt/keyrings/rocm.gpg] https://repo.radeon.com/amdgpu/latest/ubuntu focal main
+#EOF
+# ROCm repository for focal
+#sudo tee /etc/apt/sources.list.d/rocm.list <<'EOF'
+#deb [arch=amd64 signed-by=/etc/apt/keyrings/rocm.gpg] https://repo.radeon.com/rocm/apt/debian focal main
+#EOF
+
+#sudo apt update -y
+#sudo apt install amdgpu-dkms -y
+#sudo apt install rocm-hip-libraries -y
+
+
+
+
+
+
+
+
 sudo echo " it has been done. "
 
 
