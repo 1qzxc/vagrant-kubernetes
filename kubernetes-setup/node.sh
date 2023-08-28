@@ -99,12 +99,21 @@ sudo chmod 777 /home/vagrant/pv1
 
 ## turn off swap 
 # echo '#' > /etc/fstab swap
+#sed -e '/swap/,+4 s/^/#/'
+sudo sed -i '/swap/s/^/#/g' /etc/fstab
 #
 # to do
 #
 
 ### add default route to netplan yaml config
 #
+sudo cat <<EOF >>/etc/netplan/01-netcfg.yaml
+    eth1:
+      routes:
+      - to: default
+        via: 192.168.1.1
+EOF
+
 # to do
 # 
 
