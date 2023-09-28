@@ -4,7 +4,7 @@
 require './config.rb'
 
 
-IMAGE_NAME = "generic/ubuntu2204"
+IMAGE_NAME = "generic/ubuntu2004"
 
 Vagrant.configure("2") do |config|
     config.ssh.insert_key = 'false'
