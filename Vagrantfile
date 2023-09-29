@@ -30,7 +30,7 @@ Vagrant.configure("2") do |config|
         node.vm.network "public_network", bridge: "br0", dev: "br0", type: "bridge", mode: "bridge", ip: "#{node_ip}"
         node.vm.hostname = "node-1.home"
         node.vm.provider :libvirt do |v|
-           v.memory = 8192
+           v.memory = 12288
            v.cpus = 2
            v.storage :file, :size => '50G'
         end
