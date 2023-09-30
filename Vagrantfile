@@ -14,7 +14,7 @@ Vagrant.configure("2") do |config|
         master.vm.network "public_network", bridge: "br0", dev: "br0", type: "bridge", mode: "bridge", ip: MASTERIP
         master.vm.hostname = MASTERHOSTNAME
         master.vm.provider :libvirt do |libvirt|
-            libvirt.memory = 8192
+            libvirt.memory = 4096
             libvirt.cpus = 2
             libvirt.storage :file, :size => '50G'
         end
@@ -30,7 +30,7 @@ Vagrant.configure("2") do |config|
         node.vm.network "public_network", bridge: "br0", dev: "br0", type: "bridge", mode: "bridge", ip: "#{node_ip}"
         node.vm.hostname = "node-1.home"
         node.vm.provider :libvirt do |v|
-           v.memory = 12288
+           v.memory = 8192
            v.cpus = 2
            v.storage :file, :size => '50G'
         end
@@ -46,7 +46,7 @@ Vagrant.configure("2") do |config|
         node.vm.network "public_network", bridge: "br0", dev: "br0", type: "bridge", mode: "bridge", ip: "#{node_ip}"
         node.vm.hostname = "node-2.home"
         node.vm.provider :libvirt do |v|
-            v.memory = 8192
+            v.memory = 16384
             v.cpus = 2
             v.storage :file, :size => '50G'
             v.pci :bus => '0x07', :slot => '0x00', :function => '0x0'

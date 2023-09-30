@@ -1,0 +1,92 @@
+ 1  lspci -nnk
+    2  apt install nvidia-utils-535-server -y
+    3  apt install nvidia-headless-535-server -y
+    4  apt install libnvidia-encode-535-server  -y
+    5  apt install nvidia-cuda-toolkit -y
+    6  nvcc -V
+    7  apt install python3-pip -y
+    8  pip3 install torch torchvision torchaudio
+    9  clear
+   10  ls
+   11  touch test.py
+   12  vi test.py 
+   13  python3 test.py 
+   14  nvcc -V
+   15  nvidia-smi
+   16  dmesg
+   17  reboot
+   18  vi test.py 
+   19  dmesg
+   20  lspci -nnk
+   21  clear
+   22  nvidia-smi
+   23  python3 test.py 
+   24  history >> success-torch.py
+   25  cat success-torch.py 
+   26  pip install test-pytorch-gpu
+   27  run_cifar
+   28  clear
+   29  ls
+   30  ls data/
+   31  ls data/cifar-10-batches-py/
+   32  git clone https://github.com/CompVis/stable-diffusion.git
+   33  cd stable-diffusion/
+   34  ls
+   35  cat setup.py 
+   36  cat environment.yaml 
+   37  curl https://f004.backblazeb2.com/file/aai-blog-files/sd-v1-4.ckpt > sd-v1-4.ckpt
+   38  ls
+   39  history >> pytorch-stuff.txt
+   40  cat pytorch-stuff.txt 
+   41  clear
+   42  ls
+   43  python3 scripts/txt2img.py --prompt "parrot sits on a tree" --plms --ckpt sd-v1-4.ckpt --skip_grid --n_samples 1
+   44  pip3 install opencv-python
+   45  python3 scripts/txt2img.py --prompt "parrot sits on a tree" --plms --ckpt sd-v1-4.ckpt --skip_grid --n_samples 1
+   46  pip3 install omegaconf
+   47  python3 scripts/txt2img.py --prompt "parrot sits on a tree" --plms --ckpt sd-v1-4.ckpt --skip_grid --n_samples 1
+   48  pip3 install tqdm
+   49  python3 scripts/txt2img.py --prompt "parrot sits on a tree" --plms --ckpt sd-v1-4.ckpt --skip_grid --n_samples 1
+   50  pip3 install imwatermark
+   51  python3 scripts/txt2img.py --prompt "parrot sits on a tree" --plms --ckpt sd-v1-4.ckpt --skip_grid --n_samples 1
+   52  pip3 install invisible-watermark
+   53  python3 scripts/txt2img.py --prompt "parrot sits on a tree" --plms --ckpt sd-v1-4.ckpt --skip_grid --n_samples 1
+   54  pip3 install einops
+   55  python3 scripts/txt2img.py --prompt "parrot sits on a tree" --plms --ckpt sd-v1-4.ckpt --skip_grid --n_samples 1
+   56  pip3 install pytorch_lightning
+   57  python3 scripts/txt2img.py --prompt "parrot sits on a tree" --plms --ckpt sd-v1-4.ckpt --skip_grid --n_samples 1
+   58  pip3 install ldm
+   59  python3 scripts/txt2img.py --prompt "parrot sits on a tree" --plms --ckpt sd-v1-4.ckpt --skip_grid --n_samples 1
+   60  python scripts/txt2img.py --prompt "parrot sits on a tree" --plms --ckpt sd-v1-4.ckpt --skip_grid --n_samples 1
+   61  pip3 install ldm-fix
+   62  python scripts/txt2img.py --prompt "parrot sits on a tree" --plms --ckpt sd-v1-4.ckpt --skip_grid --n_samples 1
+   63  python3 scripts/txt2img.py --prompt "parrot sits on a tree" --plms --ckpt sd-v1-4.ckpt --skip_grid --n_samples 1
+   64  pip3 install ldm.models.diffusion.dpm_solver
+   65  ls
+   66  export PYTHONPATH=$PYTHONPATH:.
+   67  python3 scripts/txt2img.py --prompt "parrot sits on a tree" --plms --ckpt sd-v1-4.ckpt --skip_grid --n_samples 1
+   68  touch __init__.py
+   69  execute /bin/bash
+   70  exec /bin/bash
+   71  python3 scripts/txt2img.py --prompt "parrot sits on a tree" --plms --ckpt sd-v1-4.ckpt --skip_grid --n_samples 1
+   72  export PYTHONPATH=$PYTHONPATH:.
+   73  python3 scripts/txt2img.py --prompt "parrot sits on a tree" --plms --ckpt sd-v1-4.ckpt --skip_grid --n_samples 1
+   74  ls
+   75  ls ldm/
+   76  ls ldm/models/diffusion/dpm_solver/
+   77  pwd
+   78  export PYTHONPATH=$PYTHONPATH:/home/vagrant/stable-diffusion
+   79  python3 scripts/txt2img.py --prompt "parrot sits on a tree" --plms --ckpt sd-v1-4.ckpt --skip_grid --n_samples 1
+   80  pip3 install .
+   81  python3 scripts/txt2img.py --prompt "parrot sits on a tree" --plms --ckpt sd-v1-4.ckpt --skip_grid --n_samples 1
+   82  cd ..
+   83  git clone https://github.com/CompVis/latent-diffusion.git
+   84  cd latent-diffusion/
+   85  pip3 install .
+   86  cd ..
+   87  ls
+   88  cd stable-diffusion/
+   89  python3 scripts/txt2img.py --prompt "parrot sits on a tree" --plms --ckpt sd-v1-4.ckpt --skip_grid --n_samples 1
+   90  python --version
+   91  python3 --version
+   92  history >> stable-diffusion.txt

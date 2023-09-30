@@ -140,13 +140,21 @@ EOF
 
 
 
+export DEBIAN_FRONTEND=noninteractive
+sudo apt install nvidia-utils-535-server -y
+sudo apt install nvidia-headless-535-server -y
+sudo apt install libnvidia-encode-535-server  -y
+sudo apt install nvidia-cuda-toolkit -y
+sudo nvcc -V
+sudo apt install python3-pip -y
+pip3 install torch torchvision torchaudio
 
 
 
 
 
 sudo echo " it has been done. "
-
+sudo reboot
 
 
 

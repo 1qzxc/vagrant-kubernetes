@@ -1,0 +1,22 @@
+   18  vi test.py 
+   19  dmesg
+   20  lspci -nnk
+   21  clear
+   22  nvidia-smi
+   23  python3 test.py 
+   24  history >> success-torch.py
+   25  cat success-torch.py 
+   26  pip install test-pytorch-gpu
+   27  run_cifar
+   28  clear
+   29  ls
+   30  ls data/
+   31  ls data/cifar-10-batches-py/
+   32  git clone https://github.com/CompVis/stable-diffusion.git
+   33  cd stable-diffusion/
+   34  ls
+   35  cat setup.py 
+   36  cat environment.yaml 
+   37  curl https://f004.backblazeb2.com/file/aai-blog-files/sd-v1-4.ckpt > sd-v1-4.ckpt
+   38  ls
+   39  history >> pytorch-stuff.txt
