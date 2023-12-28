@@ -5,13 +5,13 @@ require './config.rb'
 
 
 IMAGE_NAME = "generic/ubuntu2004"
-N = 2
+N = 5
 
 Vagrant.configure("2") do |config|
     config.ssh.insert_key = 'false'
     config.vm.provider "virtualbox" do |v|
-        v.memory = 8192
-        v.cpus = 2
+        v.memory = 16384
+        v.cpus = 8
     end
 
     config.vm.define MASTERHOSTNAME do |master|
@@ -35,12 +35,12 @@ Vagrant.configure("2") do |config|
     (1..N).each do |i|
         config.vm.define "node-#{i}" do |node|
             node.vm.box = IMAGE_NAME
-            node_ip = NODEIP[i]
+            node_ip = NODEIP[i-1]
             node.vm.network "public_network", bridge: "br0", dev: "br0", type: "bridge", mode: "bridge", ip: "#{node_ip}"
             node.vm.hostname = "node-#{i}.home"
             node.vm.provision "shell" do |s|
                 s.path = "kubernetes-setup/node.sh"
-                s.args = [MASTERIP, NODEIP[i], DOCKERCACHE, APTCACHE, KUBEVERSION, MASTERHOSTNAME]
+                s.args = [MASTERIP, NODEIP[i-1], DOCKERCACHE, APTCACHE, KUBEVERSION, MASTERHOSTNAME]
               end
         end
     end

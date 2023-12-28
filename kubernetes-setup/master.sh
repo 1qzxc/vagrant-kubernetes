@@ -29,6 +29,25 @@ sudo echo "$MASTERIP $MASTERHOSTNAME" >> /etc/hosts
 
 # to-do: use credentials from config.rb
 
+# fix lan for k8s
+sudo sed -e s/4.2.2.2,//g -i /etc/netplan/01-netcfg.yaml
+sudo sed -e s/4.2.2.1,//g -i /etc/netplan/01-netcfg.yaml
+sudo sed -e s/4.2.2.1//g -i /etc/systemd/resolved.conf
+sudo sed -e s/4.2.2.2//g -i /etc/systemd/resolved.conf
+sudo sed '/\ \ \ \ eth0:/a \ \ \ \ \ \ dhcp4-overrides:\n\ \ \ \ \ \ \ \ use-routes: false' /etc/netplan/01-netcfg.yaml
+
+### add default route to netplan yaml config
+#
+sudo cat <<EOF >>/etc/netplan/01-netcfg.yaml
+    eth1:
+      routes:
+      - to: default
+        via: 192.168.1.1
+EOF
+sudo netplan apply
+sudo systemctl restart systemd-networkd
+sudo systemctl restart systemd-resolved
+
 
 
 
@@ -41,6 +60,13 @@ else
     sudo echo 'Acquire::HTTP::Proxy "http://'$APTCACHE'";' >> /etc/apt/apt.conf.d/01proxy
     sudo echo 'Acquire::HTTPS::Proxy "false";' >> /etc/apt/apt.conf.d/01proxy
 fi
+
+# install container runtime
+sudo apt update
+git clone -b windows/vbox http://192.168.1.147:3000/1q2w3e/vagrant-kubernetes.git
+sudo chmod +x /home/vagrant/vagrant-kubernetes/kubernetes-setup/files/ct-runtime/docker.sh
+sudo /home/vagrant/vagrant-kubernetes/kubernetes-setup/files/ct-runtime/docker.sh $MASTERHOSTNAME $DOCKERCACHE
+
 
 sudo apt update
 sudo apt -y install vim git curl wget
@@ -160,6 +186,7 @@ sudo kubectl patch storageclass nfs-client -p '{"metadata": {"annotations":{"sto
 # deploy grafana                              ( + )
 # configure monitoring                        ( - )
 # add logging                                 ( - )
+# - elk stack                                 ( - )
 # add alerting                                ( - )
 # add Active Directory                        ( - )
 # add RBAC policies and stuff                 ( - )
@@ -235,3 +262,5 @@ sudo kubectl patch storageclass nfs-client -p '{"metadata": {"annotations":{"sto
 # add percona                                 ( - )
 # add web3                                    ( - )
 
+# devsecops
+# xeol

@@ -9,11 +9,32 @@ DOCKERCACHE=$2
 # Add repo and Install packages
 #sudo apt update
 #sudo apt install -y curl software-properties-common #gnupg2 # ca-certificates # apt-transport-https 
-curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add -
-sudo add-apt-repository "deb [arch=amd64] http://download.docker.com/linux/ubuntu $(lsb_release -cs) stable"
-sudo apt update
-sudo apt install -y containerd.io docker-ce docker-ce-cli
+#curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add -
+#sudo add-apt-repository "deb [arch=amd64] http://download.docker.com/linux/ubuntu $(lsb_release -cs) stable"
+#sudo apt update
+#sudo apt install -y containerd.io docker-ce docker-ce-cli
 #
+
+# fix containerd for newer k8s versions >=1.24
+sudo apt -y install vim git curl wget ca-certificates curl gnupg
+sudo install -m 0755 -d /etc/apt/keyrings
+
+curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo gpg --dearmor -o /etc/apt/keyrings/docker.gpg
+sudo chmod a+r /etc/apt/keyrings/docker.gpg
+
+
+echo \
+  "deb [arch=$(dpkg --print-architecture) signed-by=/etc/apt/keyrings/docker.gpg] https://download.docker.com/linux/ubuntu \
+  $(. /etc/os-release && echo "$VERSION_CODENAME") stable" | \
+  sudo tee /etc/apt/sources.list.d/docker.list > /dev/null
+
+
+sudo apt-get update -y
+sudo apt-get install docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin -y
+sudo rm -f /etc/containerd/config.toml
+sudo systemctl restart containerd
+# --- end fix
+
 
 ## Create required directories
 sudo mkdir -p /etc/systemd/system/docker.service.d
