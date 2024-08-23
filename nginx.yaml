@@ -1,0 +1,12 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: k8snginx
+  labels:
+    app: k8snginx
+spec:
+  containers:
+    - name: k8snginx
+      image: k8smaster.home:5000/nginx:latest
+      ports:
+        - containerPort: 8080

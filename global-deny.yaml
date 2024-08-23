@@ -1,0 +1,13 @@
+apiVersion: security.istio.io/v1
+kind: AuthorizationPolicy
+metadata:
+  annotations:
+    kubectl.kubernetes.io/last-applied-configuration: |
+      {"apiVersion":"security.istio.io/v1beta1","kind":"AuthorizationPolicy","metadata":{"annotations":{},"name":"global-deny-all","namespace":"istio-system"},"spec":{}}
+  creationTimestamp: "2023-12-31T22:56:37Z"
+  generation: 1
+  name: global-deny-all
+  namespace: istio-system
+  resourceVersion: "65542"
+  uid: c00cdd1c-7884-4bd9-a17d-1bb2b345d6d3
+spec: {}

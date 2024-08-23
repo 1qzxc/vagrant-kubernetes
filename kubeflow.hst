@@ -1,0 +1,249 @@
+    1  touch metrics.yaml
+    2  vi metrics.yaml 
+    3  kubectl apply -f metrics.yaml 
+    4  kubectl top pods -A
+    5  kubectl top nodes 
+    6  helm repo add nvidia https://nvidia.github.io/gpu-operator
+    7  helm repo update
+    8  helm install  --generate-name      nvidia/gpu-operator
+    9  kubectl describe nodes  |  tr -d '\000' | sed -n -e '/^Name/,/Roles/p' -e '/^Capacity/,/Allocatable/p' -e '/^Allocated resources/,/Events/p'  | grep -e Name  -e  nvidia.com  | perl -pe 's/\n//'  |  perl -pe 's/Name:/\n/g' | sed 's/nvidia.com\/gpu:\?//g'  | sed '1s/^/Node Available(GPUs)  Used(GPUs)/' | sed 's/$/ 0 0 0/'  | awk '{print $1, $2, $3}'  | column -t
+   10  kubectl label nodes node-1 gpumem=12gb
+   11  kubectl label nodes node-2 gpumem=8gb
+   12  kubectl get pods -A
+   13  kubectl get secrets -n kubeflow
+   14  kubectl edit secret katib-mysql-secrets -n kubeflow
+   15  kubectl get pods -A
+   16  kubectl describe pod katib-mysql-66c8cdff4f-cvv6w -n kubeflow
+   17  kubectl get pods -A
+   18  kubectl get nodes
+   19  kubectl describe nodes  |  tr -d '\000' | sed -n -e '/^Name/,/Roles/p' -e '/^Capacity/,/Allocatable/p' -e '/^Allocated resources/,/Events/p'  | grep -e Name  -e  nvidia.com  | perl -pe 's/\n//'  |  perl -pe 's/Name:/\n/g' | sed 's/nvidia.com\/gpu:\?//g'  | sed '1s/^/Node Available(GPUs)  Used(GPUs)/' | sed 's/$/ 0 0 0/'  | awk '{print $1, $2, $3}'  | column -t
+   20  kubectl top nodes
+   21  git clone https://github.com/kubeflow/manifests.git
+   22  snap install kustomize
+   23  ls
+   24  cd manifests/
+   25  ls
+   26  while ! kustomize build example | kubectl apply -f -; do echo "Retrying to apply resources"; sleep 10; done
+   27  kubectl get pods -A
+   28  kubectl describe pod katib-mysql-66c8cdff4f-cvv6w -n kubeflow
+   29  kubectl exec --stdin --tt  katib-mysql-66c8cdff4f-cvv6w -n kubeflow -- /bin/bash
+   30  kubectl exec --stdin --tty  katib-mysql-66c8cdff4f-cvv6w -n kubeflow -- /bin/bash
+   31  kubectl get secrets -n kubeflow
+   32  kubectl edit secret mysql-secret -n kubeflow
+   33  kubectl edit secret katib-mysql-secrets -n kubeflow
+   34  kubectl exec --stdin --tty  katib-mysql-66c8cdff4f-cvv6w -n kubeflow -- /bin/bash
+   35  kubectl get pods -A
+   36  kubectl get secrets -n kubeflow
+   37  kubectl get configmaps -n kubeflow
+   38  kubectl edit  configmap katib-config -n kubeflow
+   39  kubectl get configmaps -n kubeflow
+   40  kubectl get deployemnts -n kubeflow
+   41  kubectl get rs -n kubeflow
+   42  kubectl edit rs katib-mysql-66c8cdff4f -n kubeflow
+   43  kubectl get secrets -n kubeflow
+   44  kubectl edit secret katib-mysql-secrets -n kubeflow
+   45  kubectl get pods -A
+   46  kubectl get rs -n kubeflow
+   47  kubectl edit rs katib-mysql-66c8cdff4f -n kubeflow
+   48  kubectl exec --stdin --tty  katib-mysql-66c8cdff4f-cvv6w -n kubeflow -- /bin/bash
+   49  kubectl get pods -A
+   50  kubectl delete pod katib-mysql-66c8cdff4f-cvv6w -n kubeflow
+   51  kubectl get pods -A
+   52  kubectl describe pod katib-mysql-66c8cdff4f-7x9vs -n kubeflow
+   53  kubectl exec --stdin --tty  katib-mysql-66c8cdff4f-7x9vs -n kubeflow -- /bin/bash
+   54  kubectl get pods -A
+   55  kubectl describe pod katib-db-manager-885969977-fmqpf -n kubeflow
+   56  kubectl logs katib-db-manager-885969977-fmqpf -n kubeflow --follow
+   57  kubectl get pods -A
+   58  kubectl logs katib-db-manager-885969977-fmqpf -n kubeflow --follow
+   59  kubectl get svc -n kubeflow 
+   60  kubectl exec --stdin --tty  katib-mysql-66c8cdff4f-7x9vs -n kubeflow -- /bin/bash
+   61  kubectl get svc -n kubeflow 
+   62  kubectl get pods -A
+   63  kubectl describe pod katib-db-manager-885969977-fmqpf -n kubeflow
+   64  kubectl get rs -n kubeflow
+   65  kubectl edit rs katib-db-manager-885969977 -n kubeflow
+   66  kubectl get rs -n kubeflow
+   67  kubectl get pods -A
+   68  kubectl describe pod katib-db-manager-885969977-fmqpf  -n kubeflow
+   69  kubectl logs katib-db-manager-885969977-fmqpf  -n kubeflow
+   70  kubectl exec --stdin --tty  katib-mysql-66c8cdff4f-7x9vs -n kubeflow -- /bin/bash
+   71  kubectl get pods -A
+   72  kubectl logs katib-db-manager-885969977-fmqpf  -n kubeflow
+   73  kubectl describe pod dex-86f655645d-p2q2k  -n auth
+   74  kubectl logs dex-86f655645d-p2q2k  -n auth
+   75  kubectl delete pod dex-86f655645d-p2q2k  -n auth
+   76  kubectl get pods -A
+   77  kubectl describe pod dex-86f655645d-7v8s9  -n auth
+   78  kubectl -n auth logs -l app=dex
+   79  kubectl -n auth get events
+   80  kubectl -n auth get secrets
+   81  touch dex-secret.yaml
+   82  kubectl -n auth get secrets
+   83  kubectl -n auth get configmaps
+   84  kubectl -n auth get configmap dex
+   85  kubectl -n auth get configmap dex -o yaml
+   86  kubectl -n auth edit configmap dex -o yaml
+   87  kubectl get pods -A
+   88  kubectl describe pod dex-86f655645d-7v8s9  -n auth
+   89  kubectl get pods -A
+   90  kubectl delete pod dex-86f655645d-7v8s9   -n auth
+   91  kubectl get pods -A
+   92  kubectl -n auth edit configmap dex -o yaml
+   93  ls
+   94  vi dex-secret.yaml 
+   95  kubectl apply -f dex-secret.yaml 
+   96  vi dex-secret.yaml 
+   97  echo "$2y$12$4K/VkmDd1q1Orb3xAt82zu8gk7Ad6ReFR4LCP9UeYE90NLiN9Df72" | base64
+   98  echo "$2y$12$4K/VkmDd1q1Orb3xAt82zu8gk7Ad6ReFR4LCP9UeYE90NLiN9Df72" | base64 -d
+   99  vi dex-secret.yaml 
+  100  kubectl apply -f dex-secret.yaml 
+  101  vi dex-secret.yaml 
+  102  kubectl get pods -A
+  103  kubectl get secrets -A
+  104  vi dex-secret.yaml 
+  105  kubectl apply -f dex-secret.yaml 
+  106  vi dex-secret.yaml 
+  107  kubectl apply -f dex-secret.yaml 
+  108  kubectl get pods -A
+  109  kubectl -n auth logs -l app=dex
+  110  kubectl delete -f dex-secret.yaml 
+  111  vi dex-secret.yaml 
+  112  echo "$2y$12$4K/VkmDd1q1Orb3xAt82zu8gk7Ad6ReFR4LCP9UeYE90NLiN9Df72" | base64
+  113  vi dex-secret.yaml 
+  114  kubectl apply -f dex-secret.yaml 
+  115  kubectl -n auth logs -l app=dex
+  116  kubectl get pods -A
+  117  kubectl -n auth logs -l app=dex
+  118  kubectl describe pod dex-86f655645d-pkn85  -n auth
+  119  kubectl delete pod dex-86f655645d-pkn85  -n auth
+  120  kubectl get pods -A
+  121  kubectl -n auth logs -l app=dex
+  122  kubectl -n auth logs pod dex-86f655645d-7zpbs
+  123  kubectl -n auth logs  dex-86f655645d-7zpbs
+  124  kubectl -n auth get configmaps
+  125  kubectl -n auth edit configmap dex
+  126  vi dex-secret.yaml 
+  127  kubectl apply -f dex-secret.yaml 
+  128  echo "$2a$10$2b2cU8CPhOTaGrs1HRQuAueS7JTT5ZHsHSzYiFPm1leZck7Mc8T4W" | base64
+  129  vi dex-secret.yaml 
+  130  kubectl apply -f dex-secret.yaml 
+  131  kubectl get pods -A
+  132  kubectl describe pod dex-86f655645d-7zpbs  -n auth
+  133  kubectl logs dex-86f655645d-7zpbs  -n auth
+  134  cat dex-secret.yaml 
+  135  kubectl exec --stdin --tty  dex-86f655645d-7zpbs_auth  -n auth -- /bin/bash
+  136  kubectl get pods -A
+  137  kubectl delete -f dex-secret.yaml 
+  138  kubectl get pods -n auth
+  139  kubectl describe pod dex-86f655645d-7zpbs -n auth
+  140  kubectl logs  dex-86f655645d-7zpbs -n auth
+  141  kubectl delete pod dex-86f655645d-7zpbs -n auth
+  142  kubectl get pods -n auth
+  143  vi dex-secret.yaml 
+  144  kubectl apply -f dex-secret.yaml 
+  145  vi dex-secret.yaml 
+  146  kubectl apply -f dex-secret.yaml 
+  147  kubectl get pods -n auth
+  148  kubectl delete pod dex-86f655645d-7zpbs -n auth
+  149  kubectl delete pod dex-86f655645d-l6x62 -n auth
+  150  kubectl get pods -n auth
+  151  kubectl describe pod dex-86f655645d-jbqzk -n auth
+  152  kubectl logs dex-86f655645d-jbqzk -n auth
+  153  cat dex-secret.yaml 
+  154  clear
+  155  kubectl get pods -A
+  156  kubectl get svc -A
+  157  kubectl get networkpolicy -n kubeflow
+  158  kubectl get networkpolicy -n istio-system
+  159  kubectl get networkpolicy -n auth
+  160  kubectl get svc -A
+  161  kubectl edit svc centraldashboard -n kubeflow
+  162  kubectl get AuthorizationPolicy -A
+  163  kubectl get AuthorizationPolicy central-dashboard -n kubeflow
+  164  kubectl get AuthorizationPolicy central-dashboard -n kubeflow -o yaml
+  165  kubectl get AuthorizationPolicy global-deny-all  -n istio-system
+  166  kubectl get AuthorizationPolicy global-deny-all  -n istio-system -o yaml
+  167  vi global-deny.yaml
+  168  kubectl delete AuthorizationPolicy global-deny-all  -n istio-system 
+  169  vi allow.yaml
+  170  vi global-deny.yaml
+  171  vi allow.yaml
+  172  kubectl apply -f allow.yaml 
+  173  kubectl get AuthorizationPolicy -A
+  174  kubectl get svc -A
+  175  kubectl get pods -A
+  176  kubectl get svc -A
+  177  kubectl edit  svc istio-ingressgateway  -n istio-system
+  178  kubectl get svc -A
+  179  kubectl edit svc centraldashboard -n kubeflow
+  180  kubectl get svc -A
+  181  ls
+  182  cat allow.yaml 
+  183  kubectl get pods -A
+  184  kubectl get nodes
+  185  kubectl get pods -A
+  186  kubectl get svc -A
+  187  clear
+  188  git clone https://github.com/flopach/digits-recognizer-kubeflow.git
+  189  ls
+  190  cd digits-recognizer-kubeflow/
+  191  ls
+  192  ls kubeflow_configs/
+  193  ls kubeflow_configs/access_kfp_from_jupyter_notebook.yaml 
+  194  cat kubeflow_configs/access_kfp_from_jupyter_notebook.yaml 
+  195  kubectl apply -f access_kfp_from_jupyter_notebook.yaml
+  196  cd kubeflow_configs/
+  197  kubectl apply -f access_kfp_from_jupyter_notebook.yaml
+  198  clear
+  199  kubectl get pods -A
+  200  clear
+  201  vi access_kfp_from_jupyter_notebook.yaml 
+  202  kubectl apply -f access_kfp_from_jupyter_notebook.yaml
+  203  kubectl get cm -A
+  204  kubectl get cm -A | grep jupyter
+  205  kubectl edit cm jupyter-web-app-config-h4bh7454m6 -n kubeflow
+  206  kubectl edit deploy jupyter-web-app-deployment -n kubeflow
+  207  kubectl get pods -A
+  208  clear
+  209  kubectl top nodes
+  210  kubectl get pods -A
+  211  kubectl describe pod test3-0 -n kubeflow-user-example-com
+  212  kubectl logs test3-0 -n kubeflow-user-example-com
+  213  kubectl describe pod test3-0 -n kubeflow-user-example-com
+  214  kubectl get pods -A
+  215  kubectl get svc -A
+  216  clear
+  217  ls
+  218  ls vagrant-kubernetes/
+  219  cd vagrant-kubernetes/
+  220  vagrant status
+  221  git status
+  222  git diff
+  223  clear
+  224  ls
+  225  cd ..
+  226  ls
+  227  mv metrics.yaml vagrant-kubernetes/
+  228  mv global-deny.yaml vagrant-kubernetes/
+  229  mv allow.yaml vagrant-kubernetes/
+  230  mv dex-secret.yaml vagrant-kubernetes/
+  231  ls
+  232  mv temp.yaml vagrant-kubernetes/
+  233  cd manifests/
+  234  ls
+  235  git status
+  236  clear
+  237  cd ..
+  238  ls
+  239  cd vagrant-kubernetes/
+  240  git status
+  241  git add .
+  242  git commit
+  243  git push
+  244  history >> kubeflow hst.txt
+  245  ls
+  246  ls kubeflow 
+  247  cat kubeflow 
+  248  history
+  249  history >> kubeflow.hst
