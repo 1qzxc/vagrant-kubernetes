@@ -6,8 +6,10 @@ this is to spin up three or more virtual machines and install kubernetes inside
 This thing needs 8gig 2cpu cores per machine totalling in 24gig 6bpu for 3 vms
 
 ## prereqs
+- Linux (Tested on Centos7/8 Fedora 38/39/40)
 - Vagrant
-- Libvirt
+- KVM/Libvirt
+- br0 bridged interface for KVM vms
 - Vagrant libvirt plugin
 - Nvidia GPUs (optional)
 
