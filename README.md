@@ -3,21 +3,27 @@ this is to spin up three or more virtual machines and install kubernetes inside
 
 
 ## system requirements
-This thing needs 8gig 2cpu cores per machine totalling in 24gig for 3 vms
+This thing needs 8gig 2cpu cores per machine totalling in 24gig 6bpu for 3 vms
+
+## prereqs
+- Vagrant
+- Libvirt
+- Vagrant libvirt plugin
+- Nvidia GPUs (optional)
 
 ## usage
-First you need to up the master because it will generate the join command for nodes (slaves)
+1) Add info to config.rb
+
+2) Up the master, it will generate the join command for nodes (slaves)
 
 ```
-vagrant up k8smaster.home (see config.rb)
+vagrant up k8smaster.home
 ```
 
-Then
-
+3) Up rest of the nodes
 ```
 vagrant up
 ```
-Use config.rb to set list of LAN static ip addresses
 
 ## Problems
 
