@@ -47,3 +47,8 @@ And the problems there are indeed...
 6) (to-do) Vagrantfile needs adjustment for libvirt/virtualbox vm config atm. Need to add provider detection.
 
 7) when vagrant built manually from dev branch, provisioning starts before the NIC is configured, hence gotta first create vms with --no-provision option and later vagrant up --provision
+
+
+## results:
+<img width="936" height="103" alt="Screenshot 2025-10-19 at 18 20 30" src="https://github.com/user-attachments/assets/7bcda8d5-f636-4af6-9f33-44918d7f6bb3" />
+
